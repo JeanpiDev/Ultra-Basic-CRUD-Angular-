@@ -1,0 +1,17 @@
+.alert-container {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Asegura que la alerta esté por encima de otros elementos */
+}
+
+.box {
+    height: 500px;
+    width: 100%;
+    background-color: black;
+}
+
+.form-create {
+    position: relative;
+    z-index: 1000;
+}

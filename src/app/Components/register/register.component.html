@@ -1,0 +1,80 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h4>Register</h4>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="registerForm">
+                        <div class="form-group">
+                            <label for="inputName" class="fw-semibold">Name</label>
+                            <input formControlName="name" type="text" class="form-control" id="inputName" placeholder="Enter your name">
+                            <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="name.errors?.['required']">
+                                    Name is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputLastName" class="fw-semibold">Lastname</label>
+                            <input formControlName="lastname" type="text" class="form-control" id="inputLastName" placeholder="Enter your lastname">
+                            <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="lastname.errors?.['required']">
+                                    Lastname is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputAge" class="fw-semibold">Age</label>
+                            <input formControlName="age" type="number" class="form-control" id="inputAge" placeholder="Enter your age">
+                            <div *ngIf="age.invalid && (age.dirty || age.touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="age.errors?.['required']">
+                                    Age is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputEmail" class="fw-semibold">Email</label>
+                            <input formControlName="email" type="email" class="form-control" id="inputEmail" placeholder="Enter your email">
+                            <div *ngIf="email.invalid && (email.dirty || email.touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="email.errors?.['required']">
+                                    Email is required.
+                                </div>
+                                <div *ngIf="email.errors?.['email.']">
+                                    Format type email is invalid.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputPassword" class="fw-semibold">Password</label>
+                            <input formControlName="password" type="password" class="form-control" id="inputPassword" placeholder="Enter your password">
+                            <div *ngIf="password.invalid && (password.dirty || password.touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="password.errors?.['required']">
+                                    Password is required.
+                                </div>
+                                <div *ngIf="password.errors?.['pattern']">
+                                    Password must contain at least 6 characters, including one lowercase letter, one uppercase letter, one number, and one special character.
+                                </div>
+                                <div *ngIf="password.errors?.['maxlength']">
+                                    Password must contain less than 16 characters.
+                                </div>
+                            </div>
+                        </div>
+                        <a type="submit" (click)="register()" class="btn btn-primary btn-block">Create Account</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

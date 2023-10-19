@@ -1,0 +1,39 @@
+<div class="alert-container" *ngIf="showAlert == true">
+    <div class="container mt-5">
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="col-md-6 text-center">
+                <div *ngIf="showAlert" class="alert alert-primary" role="alert">
+                    Welcome!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-end align-items-center pt-3 pr-3">
+    <a name="crud-button" id="crud-button" class="btn btn-success" (click)="openModal(modalContent)" role="button">New Course</a>
+</div>
+
+<ng-template #modalContent let-modal>
+    <app-crud/>
+    <button type="button" (click)="modal.dismiss('Cross Click')" class="close m-2"> X </button>
+</ng-template>
+
+
+
+<div class="row p-3">
+    <div class="col-4" *ngFor="let item of listCardData.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)">
+        <div class="card m-1 mb-3">
+            <img class="card-img-top" src={{item.image}} alt="Image" height="200px">
+            <div class="card-body" >
+                <span></span>
+                <h3 class="card-title">{{ item.title }}</h3>
+                <p class="card-text">{{ item.description }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex align-items-center justify-content-center">
+    <mat-paginator [length]="listCardData.length" [pageSize]="pageSize" (page)="onPageChange($event)" [showFirstLastButtons]="false"></mat-paginator>
+</div>

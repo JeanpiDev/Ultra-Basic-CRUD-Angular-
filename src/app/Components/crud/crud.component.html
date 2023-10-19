@@ -1,0 +1,74 @@
+<div class="container my-3">
+<div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="card">
+        <div class="card-header text-center pt-3 pb-1">
+          <h2>Create Course</h2>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="createForm">
+
+            <div class="form-group mb-3">
+              <label for="selectImage" class="form-label fw-semibold">Choose Image</label>
+              <input formControlName="image" type="file" class="form-control form-control-sm" id="selectImage">
+              <div id="fileHelpId" class="form-text">Choose the background for the course</div>
+            </div>
+
+            <div class="form-group mb-3">
+              <label for="inputTitle" class="fw-bold">Course Title</label>
+              <input formControlName="title" type="text" class="form-control form-control-sm" id="inputTitle" placeholder="Title Example">
+              <div *ngIf="title.invalid && (title.dirty || title.touched)"
+                class="alert alert-danger">
+                  <div *ngIf="title.errors?.['required']">
+                    Title is required.
+                  </div>
+              </div>
+            </div>
+
+            <div class="form-group mb-3">
+              <label for="inputDescription" class="fw-bold">Description</label>
+              <textarea formControlName="description" class="form-control form-control-sm" id="textAreaDescription" rows="3"></textarea>
+              <div *ngIf="description.invalid && (description.dirty || description.touched)"
+                class="alert alert-danger">
+                  <div *ngIf="description.errors?.['required']">
+                    Description is required.
+                  </div>
+                  <div *ngIf="description.errors?.['maxlength']">
+                    Description must contain less than 100 characters.
+                  </div>
+              </div>
+            </div>
+
+            <div class="form-group mb-3">
+              <label for="selectionStatus" class="form-label fw-bold">Status</label>
+              <select formControlName="status" class="form-select form-select-sm " name="selectionStatus" id="selectionStatus">
+                <option selected>--- Select one ---</option>
+                <option value="1">Enabled</option>
+                <option value="0">Disabled</option>
+              </select>
+              <div *ngIf="status.invalid && (status.dirty || status.touched)"
+                class="alert alert-danger">
+                  <div *ngIf="status.errors?.['required']">
+                    Selection is required.
+                  </div>
+              </div>
+            </div>
+
+            <div class="form-group d-flex justify-content-center">
+              <a type="submit" (click)="create()" name="buttonCreate" id="buttonCreate" class="btn btn-primary" role="button">Create Course</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container mt-2" *ngIf="showAlert == true">
+  <div class="row d-flex align-items-center justify-content-center">
+      <div class="col-md-6 text-center">
+          <div class="alert alert-secondary fw-bold" role="alert">
+            Succesful course created!
+          </div>
+      </div>
+  </div>
+</div>

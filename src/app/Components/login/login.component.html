@@ -1,0 +1,46 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h4>Login</h4>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="loginForm">
+                        <div class="form-group">
+                            <label for="inputEmail" class="fw-semibold">Email</label>
+                            <input formControlName="email" type="email" class="form-control" id="inputEmail" placeholder="Enter your email">
+                            <div *ngIf="email.invalid && (email.dirty || email.touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="email.errors?.['required']">
+                                    Email is required.
+                                </div>
+                                <div *ngIf="email.errors?.['email']">
+                                    Format type email is invalid.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputPassword" class="fw-semibold">Password</label>
+                            <input formControlName="password" type="password" class="form-control" id="inputPassword" placeholder="Enter your password">
+                            <div *ngIf="password.invalid && (password.dirty || password.touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="password.errors?.['required']">
+                                    Password is required.
+                                </div>
+                                <div *ngIf="password.errors?.['pattern']">
+                                    Password must contain at least 6 characters, including one lowercase letter, one uppercase letter, one number, and one special character.
+                                </div>
+                                <div *ngIf="password.errors?.['maxlength']">
+                                    Password must contain less than 16 characters.
+                                </div>
+                            </div>
+                        </div>
+                        <a type="submit" (click)="login()" class="btn btn-success btn-block">Sign in</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
