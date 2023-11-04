@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { Course } from 'src/app/Interfaces/course';
-import { CourseService } from 'src/app/Services/course.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+import { ApiService } from '../../Services/api.service';
 
 
 @Component({
@@ -13,9 +11,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class HomeComponent implements OnInit{
   showAlert: boolean = true;
-  listCardData: Course[] = [];
+  data: any[] = [];
 
-  constructor(private courseService: CourseService, private modalService: NgbModal) {}
+  constructor(private apiService: ApiService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.getListCourse();
@@ -23,26 +21,28 @@ export class HomeComponent implements OnInit{
     setTimeout(() => {
       this.showAlert = false;
     }, 1000);
-
   }
 
   openModal(content: any) {
     this.modalService.open(content, { centered: true }); // Abre el modal
   }
 
-  getListCourse() {
-    this.courseService.getListCourses().subscribe((data) => {
-      console.log(data);
-    })
-  }
-
   // Pagination
   dataElements: any[] = [];
-  pageSize = 0;
+  pageSize = 6;
   pageIndex = 0;
 
   onPageChange(event: PageEvent): void {
     this.pageIndex = event.pageIndex;
   }
 
+  getListCourse() {
+    this.apiService.queryGet('courses').subscribe((res: any) => {
+      this.data = res.data;
+      this.dataElements = this.data;
+    });
+  }
+
+  getStatusCard() {
+  }
 }

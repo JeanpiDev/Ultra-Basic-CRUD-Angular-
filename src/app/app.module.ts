@@ -13,6 +13,8 @@ import { CrudComponent } from './Components/crud/crud.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from './Services/auth.service';
+import { MapComponent } from './Components/map/map.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RegisterComponent,
     HomeComponent,
     NavbarComponent,
-    CrudComponent
+    CrudComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatPaginatorModule,
     NgbModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

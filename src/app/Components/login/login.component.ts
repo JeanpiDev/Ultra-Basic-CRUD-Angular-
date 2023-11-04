@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/Services/api.service';
 import { AuthService } from 'src/app/Services/auth.service';
+import { UserDataService } from 'src/app/Services/user-data.service';
 
 @Component({
   selector: 'app-login',
@@ -10,30 +12,35 @@ import { AuthService } from 'src/app/Services/auth.service';
 })
 
 export class LoginComponent {
+  showAlert: boolean = false;
+
   loginForm = this.formBuilder.group({
     email: ['', [Validators.email, Validators.required]],
-    password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(16), Validators.pattern('^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+{}|:"<>?]).*$')]]
+    password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(16), Validators.pattern('^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+{}|:"<>?]).*$')]]
   })
 
-  constructor(private formBuilder: FormBuilder, private router:Router, private authService: AuthService) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private router:Router,
+    private authService: AuthService,
+    private apiService: ApiService,
+    private userDataService: UserDataService) { }
 
   get email() { return this.loginForm.controls.email; }
   get password() { return this.loginForm.controls.password; }
 
   login() {
     if (this.loginForm.valid) {
-      let dataStorage = JSON.parse(localStorage.getItem('infoUserRegister') || 'null');
-      let dataLogin = this.loginForm.value;
-      if (dataLogin.email === dataStorage.email && dataLogin.password === dataStorage.password) {
-        localStorage.setItem("infoUser", JSON.stringify(this.loginForm.value));
-        this.authService.setAuthenticated(true);
+      this.apiService.login({email:this.loginForm.value.email || 'null', password: this.loginForm.value.password || 'null' }).subscribe(response => {
+        this.authService.setLoggedIn(true);
+        this.userDataService.setUser(response.user);
         this.router.navigateByUrl('/home');
         this.loginForm.reset();
-        console.log('Login Success');
-      }
+        localStorage.setItem('token', response.token);
+      });
+    } else {
+      this.loginForm.markAllAsTouched();
+      this.showAlert = true;
     }
-    else {
-        this.loginForm.markAllAsTouched();
-      }
-  };
-};
+  }
+}

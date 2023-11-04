@@ -1,8 +1,8 @@
-<div class="alert-container" *ngIf="showAlert == true">
+<div class="alert-container" *ngIf="showAlert">
     <div class="container mt-5">
         <div class="row d-flex align-items-center justify-content-center">
             <div class="col-md-6 text-center">
-                <div *ngIf="showAlert" class="alert alert-primary" role="alert">
+                <div class="alert alert-primary" role="alert">
                     Welcome!
                 </div>
             </div>
@@ -16,18 +16,24 @@
 
 <ng-template #modalContent let-modal>
     <app-crud/>
-    <button type="button" (click)="modal.dismiss('Cross Click')" class="close m-2"> X </button>
+    <button type="button" (click)="modal.dismiss('Cross Click')" class="close m-2 mb-4"> X </button>
 </ng-template>
 
 
 
 <div class="row p-3">
-    <div class="col-4" *ngFor="let item of listCardData.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)">
-        <div class="card m-1 mb-3">
-            <img class="card-img-top" src={{item.image}} alt="Image" height="200px">
+    <div class="col-4" *ngFor="let item of data.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)">
+        <div class="card  m-1 mb-3 text-bg-light" *ngIf="item.status">
             <div class="card-body" >
                 <span></span>
-                <h3 class="card-title">{{ item.title }}</h3>
+                <h3 class="card-title">{{ item.name }}</h3>
+                <p class="card-text">{{ item.description }}</p>
+            </div>
+        </div>
+        <div class="card  m-1 mb-3 text-bg-danger" *ngIf="!item.status">
+            <div class="card-body" >
+                <span></span>
+                <h3 class="card-title">{{ item.name }}</h3>
                 <p class="card-text">{{ item.description }}</p>
             </div>
         </div>
@@ -35,5 +41,11 @@
 </div>
 
 <div class="d-flex align-items-center justify-content-center">
-    <mat-paginator [length]="listCardData.length" [pageSize]="pageSize" (page)="onPageChange($event)" [showFirstLastButtons]="false"></mat-paginator>
+    <mat-paginator [length]="data.length" [pageSize]="pageSize" (page)="onPageChange($event)" [showFirstLastButtons]="false"></mat-paginator>
+</div>
+
+<hr>
+
+<div>
+    <app-home/>
 </div>

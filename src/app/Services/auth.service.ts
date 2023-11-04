@@ -10,9 +10,11 @@ export class AuthService {
   isAuthenticated$(): Observable<boolean> {
     return this.isLoggedIn;
   }
-
-  setAuthenticated(isAuthenticated: boolean): void {
-    this.isLoggedIn.next(isAuthenticated);
+  setLoggedIn(value: boolean) {
+    this.isLoggedIn.next(value);
+  }
+  getLoggedIn() {
+    return this.isLoggedIn.value;
   }
 
 }

@@ -30,7 +30,7 @@
                                     Password is required.
                                 </div>
                                 <div *ngIf="password.errors?.['pattern']">
-                                    Password must contain at least 6 characters, including one lowercase letter, one uppercase letter, one number, and one special character.
+                                    Password must contain at least 8 characters, including one lowercase letter, one uppercase letter, one number, and one special character.
                                 </div>
                                 <div *ngIf="password.errors?.['maxlength']">
                                     Password must contain less than 16 characters.
@@ -39,6 +39,17 @@
                         </div>
                         <a type="submit" (click)="login()" class="btn btn-success btn-block">Sign in</a>
                     </form>
+                </div>
+            </div>
+            <div class="alert-container" *ngIf="showAlert">
+                <div class="container mt-3">
+                    <div class="row d-flex align-items-center justify-content-center">
+                        <div class="col-md-6 text-center">
+                            <div *ngIf="showAlert" class="alert alert-danger" role="alert">
+                                Verify your data
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

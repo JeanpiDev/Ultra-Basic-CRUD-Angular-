@@ -5,12 +5,14 @@ import { RegisterComponent } from './Components/register/register.component';
 import { LoginComponent } from './Components/login/login.component';
 import { AuthGuard } from './Guards/auth.guard';
 import { CrudComponent } from './Components/crud/crud.component';
+import { MapComponent } from './Components/map/map.component';
 
 const routes: Routes = [
   {path: 'home' , component: HomeComponent, canActivate: [AuthGuard]},
   {path: 'edit-courses' , component: CrudComponent, canActivate: [AuthGuard]},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'map', component: MapComponent},
   {path: '**', redirectTo: '/home', pathMatch: 'full'}
 ];
 
